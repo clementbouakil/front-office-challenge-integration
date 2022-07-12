@@ -1,0 +1,11 @@
+.slick-disabled {
+	opacity: 0.5;
+}
+
+.slick-prev,
+.slick-next {
+	position: relative !important;
+	margin: 0px !important;
+	top: auto !important;
+	left: auto !important;
+}
