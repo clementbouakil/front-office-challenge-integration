@@ -26,6 +26,34 @@ const carouselSettings = {
 	slidesToScroll: 3,
 	prevArrow: <CarouselButton onClick={null} className={null} isPrev />,
 	nextArrow: <CarouselButton onClick={null} className={null} isPrev={false} />,
+	responsive: [
+		{
+			breakpoint: 1024,
+			settings: {
+				dots: false,
+				infinite: false,
+				slidesToShow: 3,
+				slidesToScroll: 3,
+			},
+		},
+		{
+			breakpoint: 600,
+			settings: {
+				arrows: false,
+				slidesToShow: 2,
+				initialSlide: 2,
+				slidesToScroll: 2,
+			},
+		},
+		{
+			breakpoint: 480,
+			settings: {
+				arrows: false,
+				slidesToShow: 1,
+				slidesToScroll: 1,
+			},
+		},
+	],
 };
 
 const App = () => {
@@ -135,8 +163,8 @@ const App = () => {
 	const Events = React.useCallback(
 		() => (
 			<Row justify="space-between" align="middle">
-				<Col span={1} />
-				<Col span={20}>
+				<Col xs={{ span: 0 }} lg={{ span: 1 }} />
+				<Col xs={{ span: 24 }} lg={{ span: 20 }}>
 					{events && !_.isEmpty(events) ? (
 						<Carousel {...carouselSettings}>
 							{events.map((event) => (
@@ -147,7 +175,7 @@ const App = () => {
 						<Empty description={<span>Aucune épreuve de prévu</span>} />
 					)}
 				</Col>
-				<Col span={1} />
+				<Col xs={{ span: 0 }} lg={{ span: 1 }} />
 			</Row>
 		),
 		[events]
