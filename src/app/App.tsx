@@ -1,8 +1,19 @@
-import { Carousel, Col, Divider, Empty, Layout, Row, Select } from 'antd';
+import {
+	Carousel,
+	Col,
+	Divider,
+	Empty,
+	Layout,
+	Row,
+	Select,
+	Table,
+} from 'antd';
 import _ from 'lodash';
 import React from 'react';
 import { CarouselButton, EventCard, Header, Section } from '../components';
-import { Event, Medal } from '../types';
+import { DataType } from '../interfaces';
+import { Event } from '../types';
+import { columns, medalsSelector } from '../utils';
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -23,7 +34,7 @@ const App = () => {
   | STATES
   |--------------------------------------------------------------------------
   */
-	const [medals, setMedals] = React.useState<Medal[] | []>([]);
+	const [medals, setMedals] = React.useState<DataType[] | []>([]);
 	const [nextEvent, setNextEvent] = React.useState<Event[] | []>([]);
 	const [selectedSports, setSelectedSports] = React.useState<string[]>([]);
 
@@ -73,7 +84,7 @@ const App = () => {
 				}
 
 				if (myJson?.medals) {
-					setMedals(myJson?.medals);
+					setMedals(medalsSelector(myJson?.medals));
 				}
 			});
 	}, []);
@@ -124,6 +135,7 @@ const App = () => {
 	const Events = React.useCallback(
 		() => (
 			<Row justify="space-between" align="middle">
+				<Col span={1} />
 				<Col span={20}>
 					{events && !_.isEmpty(events) ? (
 						<Carousel {...carouselSettings}>
@@ -135,6 +147,7 @@ const App = () => {
 						<Empty description={<span>Aucune épreuve de prévu</span>} />
 					)}
 				</Col>
+				<Col span={1} />
 			</Row>
 		),
 		[events]
@@ -153,7 +166,12 @@ const App = () => {
 					<Filters />
 					<Section title="Prochaines épreuves" children={<Events />} />
 					<Divider />
-					<Section title="Médailles" children={null} />
+					<Section
+						title="Médailles"
+						children={
+							<Table pagination={false} dataSource={medals} columns={columns} />
+						}
+					/>
 				</Row>
 			</Content>
 		</Layout>

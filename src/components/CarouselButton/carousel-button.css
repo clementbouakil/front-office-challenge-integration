@@ -2,10 +2,10 @@
 	opacity: 0.5;
 }
 
-.slick-prev,
-.slick-next {
-	position: relative !important;
-	margin: 0px !important;
-	top: auto !important;
-	left: auto !important;
+.ant-carousel .slick-prev {
+	left: -100px;
+}
+
+.ant-carousel .slick-next {
+	right: -100px;
 }
